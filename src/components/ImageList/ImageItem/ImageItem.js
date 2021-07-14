@@ -11,10 +11,10 @@ const ImageItem = (props) => {
   }
 
   return (
-    <div ref={ref} className={classes.container} data-id={props.url.id}>
+    <div ref={ref} className={classes.container} data-id={props.image.id}>
       <div className={classes['image-box']}>
         <img
-          src={props.url.url}
+          src={props.image.url}
           alt="userPic"
           className={classes['image-item']}
         />
@@ -30,7 +30,7 @@ const ImageItem = (props) => {
 }
 
 ImageItem.propTypes = {
-  url: PropTypes.object.isRequired,
+  image: PropTypes.object.isRequired,
   deleteImage: PropTypes.func.isRequired
 }
 

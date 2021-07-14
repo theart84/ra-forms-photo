@@ -1,34 +1,37 @@
-import './App.css';
-import ImageItem from './components/ImageList/ImageItem/ImageItem';
-import ImageList from './components/ImageList/ImageList';
-import InputFiles from './components/InputFiles/InputFiles';
-import {useState} from "react";
+import "./App.css";
+import ImageItem from "./components/ImageList/ImageItem/ImageItem";
+import ImageList from "./components/ImageList/ImageList";
+import InputFiles from "./components/InputFiles/InputFiles";
+import { useState } from "react";
 
 function App() {
-  const [urls, setUrls] = useState([]);
+  const [images, setImages] = useState([]);
 
   const addNewImageHandler = (data) => {
-    setUrls(prevState => [...prevState, data]);
-  }
+    setImages((prevState) => [...prevState, data]);
+  };
 
   const deleteImageHandler = (id) => {
-    setUrls(prevState => {
-      const filteredImages = prevState.filter(image => image.id !== id);
-      return [...filteredImages]
-    })
-  }
-
-  const images = urls.map(url => (
-    <ImageItem
-      key={url.id}
-      url={url}
-      deleteImage={deleteImageHandler}
-    />));
+    setImages((prevState) => {
+      const filteredImages = prevState.filter((image) => image.id !== id);
+      return [...filteredImages];
+    });
+  };
 
   return (
     <div>
-      <InputFiles addNewImage={addNewImageHandler}/>
-      <ImageList>{images}</ImageList>
+      <InputFiles addNewImage={addNewImageHandler} />
+      <ImageList images={images}>
+        {(images) =>
+          images.map((image) => (
+            <ImageItem
+              key={image.id}
+              image={image}
+              deleteImage={deleteImageHandler}
+            />
+          ))
+        }
+      </ImageList>
     </div>
   );
 }
