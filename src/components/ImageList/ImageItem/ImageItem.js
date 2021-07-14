@@ -1,16 +1,37 @@
 import classes from './ImageItem.module.css';
+import {useRef} from "react";
+import PropTypes from 'prop-types';
 
-const ImageItem = props => {
+
+const ImageItem = (props) => {
+  const ref = useRef();
+  const onClickHandler = () => {
+    const {id} = ref.current.dataset;
+    props.deleteImage(id)
+  }
+
   return (
-    <div className={classes.container}>
+    <div ref={ref} className={classes.container} data-id={props.url.id}>
       <div className={classes['image-box']}>
-        <img src="https://st2.depositphotos.com/1064024/10755/i/950/depositphotos_107559180-stock-photo-little-boy-illustration.jpg" alt="userPic" className={classes['image-item']}/>
+        <img
+          src={props.url.url}
+          alt="userPic"
+          className={classes['image-item']}
+        />
       </div>
-      <button className={classes['btn-delete']}>x</button>
+      <button
+        className={classes['btn-delete']}
+        onClick={onClickHandler}
+      >
+        x
+      </button>
     </div>
   )
 }
 
-
+ImageItem.propTypes = {
+  url: PropTypes.object.isRequired,
+  deleteImage: PropTypes.func.isRequired
+}
 
 export default ImageItem
